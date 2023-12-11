@@ -21,7 +21,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/orangelckc/stylelint-config.git"
+    "url": "git+ssh://git@github.com/orangelckc/kc-cli.git"
+  },
+  "homepage": "https://github.com/orangelckc/kc-cli",
+  "bugs": {
+    "url": "https://github.com/orangelckc/kc-cli/issues"
   },
   "license": "MIT",
   "dependencies": {

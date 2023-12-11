@@ -1,4 +1,4 @@
-# KC-CLI 
+# @btrl/cli
 基于vue3生态的个人脚手架工具（2023版）
 
 ## 技术栈
@@ -57,3 +57,7 @@ $ kc --version
 ```shell
 $ kc [command] --help
 ```
+
+## License
+
+[MIT](./LICENSE) License &copy; 2023
