@@ -31,8 +31,8 @@ program
   .argument('[name]', '项目名称（英文）', 'kc-project')
   .option('-f, --force', '创建时强制删除已存在同名的文件夹')
   .action(async (name, options) => {
-    await init(name, options)
-    create(name, options)
+    const answers = await init(name)
+    create(answers, options)
   })
 
 // 解析用户执行命令传入参数
