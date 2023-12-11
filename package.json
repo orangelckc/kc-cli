@@ -1,6 +1,6 @@
 {
   "name": "@btrl/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于vue3生态的个人脚手架工具（2023版）",
   "main": "index.js",
   "type": "module",
