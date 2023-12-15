@@ -27,7 +27,7 @@
 ## 全局安装
 
 ```shell
-$ npm install -g kc-cli
+$ npm install -g @btrl/cli
 ```
 
 ## 使用 
