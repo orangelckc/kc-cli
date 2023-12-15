@@ -19,7 +19,7 @@
   ],
   "module": "src/cli.ts",
   "bin": {
-    "cli": "output/cli.js"
+    "kc": "output/cli.js"
   },
   "files": [
     "output"
