@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "esnext",
+    "jsx": "react-jsx",
+    "lib": ["ESNext"],
+    "moduleDetection": "force",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": [
+      "bun-types" // add Bun global
+    ],
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.d.ts"
+    ]
+  }
+}
