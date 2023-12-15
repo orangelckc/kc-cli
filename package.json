@@ -1,7 +1,7 @@
 {
   "name": "@btrl/cli",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "基于vue3生态的个人脚手架工具（2023版）",
   "author": "KC <orangelckc@hotmail.com>",
   "license": "MIT",
