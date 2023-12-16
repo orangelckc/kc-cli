@@ -35,12 +35,13 @@ $ npm install -g @btrl/cli
 ### 创建项目
 
 ```shell
-$ kc create [project-name]
+$ kc [create|new] [project-name]
 ```
 
 #### 参数
 
 - `-f, --force`: 如果目录存在，强制删除后再创建
+- `-p, --path`: 指定创建路径，默认为当前路径
 
 ### 查看帮助
 
