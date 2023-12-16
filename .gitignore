@@ -170,5 +170,3 @@ dist
 
 # IntelliJ based IDEs
 .idea
-
-output/

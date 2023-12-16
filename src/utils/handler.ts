@@ -1,10 +1,9 @@
+import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import util from 'node:util'
 
 import chalk from 'chalk'
-import downloadGitRepo from 'download-git-repo'
 import inquirer from 'inquirer'
 
 import { URLS } from './constants'
@@ -104,15 +103,12 @@ export async function getTemplates() {
  * @param _options 命令行参数
  */
 export function create(targetDir: string, target: string, _options?: Record<string, any>) {
-  const downloader = util.promisify(downloadGitRepo)
-
-  return wrapLoading(
-    downloader,
-    '下载模版中...',
-    URLS.downloadBranch(target),
+  const _arg1 = [
+    `clone --branch ${target}`,
+    `--single-branch ${URLS.origin}`,
     targetDir,
-    { clone: true },
-  )
+  ]
+  spawnSync('git', _arg1, { shell: true, stdio: 'inherit' })
 }
 
 /**

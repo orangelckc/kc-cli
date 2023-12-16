@@ -13,6 +13,4 @@ export const URLS = {
   tags: (repo: string) => `${REPO_API}/${repo}/tags`,
   // 克隆仓库某个 tag
   downloadRepo: (repo: string, tag: string) => `${REPO_NAME}/${repo}${tag ? `#${tag}` : ''}`,
-  // 克隆仓库某个分支
-  downloadBranch: (branch: string) => `direct:${URLS.origin}#${branch}`,
 }
