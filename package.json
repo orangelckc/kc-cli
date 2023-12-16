@@ -25,11 +25,13 @@
     "output"
   ],
   "scripts": {
-    "build": "bun build src/cli.ts --outfile output/cli.js --target node --minify",
-    "postbuild": "bun run postbuild.js",
+    "build": "bun run build.ts",
+    "postbuild": "bun run postbuild.ts",
     "lint": "eslint . --fix",
     "publish": "npm publish --access public",
-    "prepare": "bun run simple-git-hooks"
+    "prepare": "bun run simple-git-hooks",
+    "prepublishOnly": "bun run lint",
+    "preversion": "bun run lint"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
