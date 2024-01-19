@@ -8,7 +8,7 @@ import figlet from 'figlet'
 
 import { URLS } from './utils/constants'
 import { create, getStdIn, getTemplates, isExistProject, writePackageJson } from './utils/handler'
-import { checkUrl, getPackageJson, readRepo, writeRepo } from './utils/tools'
+import { checkUrl, getPackageJson, readRepo, resetRepo, writeRepo } from './utils/tools'
 
 const { version } = getPackageJson()
 
@@ -108,6 +108,19 @@ program
     try {
       const url = readRepo()
       console.log(`${chalk.green('✔')} 当前模版仓库地址: ${chalk.underline.cyan(url)}`)
+    }
+    catch (error) {
+      console.error(chalk.bgRed(error))
+    }
+  })
+
+program
+  .command('reset')
+  .description('重置模版仓库地址')
+  .action(() => {
+    try {
+      resetRepo()
+      console.log(`${chalk.green('✔ 已成功重置模版仓库地址')} `)
     }
     catch (error) {
       console.error(chalk.bgRed(error))

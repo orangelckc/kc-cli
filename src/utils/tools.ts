@@ -103,3 +103,15 @@ export function getCustomRepo() {
     return null
   }
 }
+
+/**
+ * 重置.repo文件
+ */
+export function resetRepo() {
+  try {
+    fs.rmSync(repoPath)
+  }
+  catch (error) {
+    throw new Error('重置仓库地址失败')
+  }
+}
