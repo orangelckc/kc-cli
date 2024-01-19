@@ -8,7 +8,7 @@ import figlet from 'figlet'
 
 import { URLS } from './utils/constants'
 import { create, getStdIn, getTemplates, isExistProject, writePackageJson } from './utils/handler'
-import { checkUrl, getPackageJson, writeRepo } from './utils/tools'
+import { checkUrl, getPackageJson, readRepo, writeRepo } from './utils/tools'
 
 const { version } = getPackageJson()
 
@@ -95,6 +95,19 @@ program
       writeRepo(url)
       console.log(`${chalk.green('✔')} 已成功设置模版仓库地址: ${chalk.underline.green(url)}`)
       console.log(`${chalk.bgYellowBright('请确保模版仓库有2个以上分支, 脚手架会自动忽略 master 分支和 main 分支')} `)
+    }
+    catch (error) {
+      console.error(chalk.bgRed(error))
+    }
+  })
+
+program
+  .command('current')
+  .description('查看当前模版仓库地址')
+  .action(() => {
+    try {
+      const url = readRepo()
+      console.log(`${chalk.green('✔')} 当前模版仓库地址: ${chalk.underline.cyan(url)}`)
     }
     catch (error) {
       console.error(chalk.bgRed(error))

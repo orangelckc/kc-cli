@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url'
 
 import ora from 'ora'
 
+import { URLS } from './constants'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const pkgPath = resolve(__dirname, '../package.json')
@@ -54,6 +56,19 @@ export function writeRepo(url: string) {
   }
   catch (error) {
     throw new Error('写入.repo文件失败')
+  }
+}
+
+/**
+ * 读取.repo文件
+ */
+export function readRepo() {
+  try {
+    const CUSTOM_REPO = fs.readFileSync(repoPath, 'utf-8').trim()
+    return CUSTOM_REPO || URLS.origin()
+  }
+  catch (error) {
+    return URLS.origin()
   }
 }
 
