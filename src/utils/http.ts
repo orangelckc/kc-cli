@@ -2,7 +2,7 @@ import axios from 'axios'
 import chalk from 'chalk'
 
 import { URLS } from './constants'
-import { getCustomRepo } from './tools'
+import { getRepoName } from './tools'
 
 const request = axios.create({
   timeout: 5000,
@@ -19,7 +19,7 @@ request.interceptors.response.use((res) => {
  * 获取模板分支列表
  */
 function getBranchList() {
-  const repo = getCustomRepo()
+  const repo = getRepoName()
   const url = URLS.branches(repo)
   return request.get<Branch[]>(url)
     .catch(() => {

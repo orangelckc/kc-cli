@@ -8,7 +8,7 @@ import inquirer from 'inquirer'
 
 import { URLS } from './constants'
 import { getBranchList } from './http'
-import { getCustomRepo, wrapLoading } from './tools'
+import { getRepoName, wrapLoading } from './tools'
 
 /**
  * 创建项目获取命令行输入
@@ -105,7 +105,7 @@ export async function getTemplates() {
 export function create(targetDir: string, target: string, _options?: Record<string, any>) {
   const _arg1 = [
     `clone --branch ${target}`,
-    `--single-branch ${URLS.origin(getCustomRepo())}`,
+    `--single-branch ${URLS.clone(getRepoName())}`,
     targetDir,
   ]
   spawnSync('git', _arg1, { shell: true, stdio: 'inherit' })

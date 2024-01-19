@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import ora from 'ora'
 
-import { URLS } from './constants'
+import { REPO_NAME, URLS } from './constants'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -47,6 +47,28 @@ export function getPackageJson() {
 }
 
 /**
+ * 获取自定义仓库名称
+ */
+export function getRepoName() {
+  try {
+    const CUSTOM_REPO = fs.readFileSync(repoPath, 'utf-8').trim()
+    if (!CUSTOM_REPO)
+      throw new Error('未配置自定义仓库地址')
+
+    // 提取repo名称
+    const reg = /^https:\/\/github\.com\/[\w-]+\/[\w-]+$/
+    const repo = CUSTOM_REPO.match(reg)?.[0].split('/').slice(-2).join('/')
+    if (!repo)
+      throw new Error('未配置自定义仓库地址')
+
+    return repo
+  }
+  catch (error) {
+    return REPO_NAME // 默认仓库地址
+  }
+}
+
+/**
  * 写入.repo文件
  * @param url 仓库链接
  */
@@ -61,15 +83,11 @@ export function writeRepo(url: string) {
 
 /**
  * 读取.repo文件
+ * @returns 仓库链接
  */
 export function readRepo() {
-  try {
-    const CUSTOM_REPO = fs.readFileSync(repoPath, 'utf-8').trim()
-    return CUSTOM_REPO || URLS.origin()
-  }
-  catch (error) {
-    return URLS.origin()
-  }
+  const repo = getRepoName()
+  return URLS.origin(repo)
 }
 
 /**
@@ -83,33 +101,12 @@ export function checkUrl(url: string) {
 }
 
 /**
- * 获取.repo文件
- */
-export function getCustomRepo() {
-  try {
-    const CUSTOM_REPO = fs.readFileSync(repoPath, 'utf-8').trim()
-    if (!CUSTOM_REPO)
-      return null
-
-    // 提取repo名称
-    const reg = /^https:\/\/github\.com\/[\w-]+\/[\w-]+$/
-    const REPO_NAME = CUSTOM_REPO.match(reg)?.[0].split('/').slice(-2).join('/')
-    if (!REPO_NAME)
-      return null
-
-    return REPO_NAME
-  }
-  catch (error) {
-    return null
-  }
-}
-
-/**
  * 重置.repo文件
  */
 export function resetRepo() {
   try {
-    fs.rmSync(repoPath)
+    if (fs.existsSync(repoPath))
+      fs.rmSync(repoPath)
   }
   catch (error) {
     throw new Error('重置仓库地址失败')
