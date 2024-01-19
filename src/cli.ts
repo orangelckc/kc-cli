@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import path from 'node:path'
 import process from 'node:process'
 
@@ -9,7 +8,7 @@ import figlet from 'figlet'
 
 import { URLS } from './utils/constants'
 import { create, getStdIn, getTemplates, isExistProject, writePackageJson } from './utils/handler'
-import { getPackageJson } from './utils/tools'
+import { checkUrl, getPackageJson, writeRepo } from './utils/tools'
 
 const { version } = getPackageJson()
 
@@ -75,6 +74,27 @@ program
       console.log('\n请执行以下命令进行开发：')
       console.log(`  ${chalk.yellow(`cd ${targetDir}`)}`)
       console.log(`  ${chalk.yellow('npm install')}\n`)
+    }
+    catch (error) {
+      console.error(chalk(error))
+    }
+  })
+
+program
+  .command('set')
+  .description('设置模版仓库地址')
+  .argument('[url]', '模版仓库地址', '')
+  .action(async (url: string) => {
+    try {
+      if (!url)
+        throw new Error('请输入仓库地址')
+
+      if (!checkUrl(url))
+        throw new Error('仓库地址格式不正确, 目前只支持github仓库')
+
+      writeRepo(url)
+      console.log(`${chalk.green('✔')} 已成功设置模版仓库地址: ${chalk.underline.green(url)}`)
+      console.log(`${chalk.bgYellowBright('请确保模版仓库有2个以上分支, 脚手架会自动忽略 master 分支和 main 分支')} `)
     }
     catch (error) {
       console.error(chalk.bgRed(error))

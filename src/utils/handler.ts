@@ -8,7 +8,7 @@ import inquirer from 'inquirer'
 
 import { URLS } from './constants'
 import { getBranchList } from './http'
-import { wrapLoading } from './tools'
+import { getCustomRepo, wrapLoading } from './tools'
 
 /**
  * 创建项目获取命令行输入
@@ -83,7 +83,7 @@ export async function getTemplates() {
   if (!branchList || !branchList.length)
     return
 
-  const branches = branchList.filter(item => item.name !== 'main').map(item => item.name)
+  const branches = branchList.filter(item => item.name !== 'main' && item.name !== 'master').map(item => item.name)
 
   // 获取要下载的模板名称（对应模版的分支名）
   const { branch } = await inquirer.prompt({
@@ -105,7 +105,7 @@ export async function getTemplates() {
 export function create(targetDir: string, target: string, _options?: Record<string, any>) {
   const _arg1 = [
     `clone --branch ${target}`,
-    `--single-branch ${URLS.origin}`,
+    `--single-branch ${URLS.origin(getCustomRepo())}`,
     targetDir,
   ]
   spawnSync('git', _arg1, { shell: true, stdio: 'inherit' })
