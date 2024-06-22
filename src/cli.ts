@@ -7,7 +7,7 @@ import { program } from 'commander'
 import figlet from 'figlet'
 
 import { URLS } from './utils/constants'
-import { create, getStdIn, getTemplates, isExistProject, writePackageJson } from './utils/handler'
+import { create, getStdIn, getTemplates, isExistProject, reInitGit, writePackageJson } from './utils/handler'
 import { checkUrl, getPackageJson, readRepo, resetRepo, writeRepo } from './utils/tools'
 
 const { version } = getPackageJson()
@@ -68,12 +68,13 @@ program
       await isExistProject(answers.name, targetDir, options.force)
       const target = await getTemplates()
       await create(targetDir, target, options)
-      writePackageJson(targetDir, answers)
+      await writePackageJson(targetDir, answers)
+      await reInitGit(targetDir)
 
       console.log(`\n${chalk.green('✔')} 已成功创建项目: ${chalk.underline.green(answers.name)}`)
       console.log('\n请执行以下命令进行开发：')
       console.log(`  ${chalk.yellow(`cd ${targetDir}`)}`)
-      console.log(`  ${chalk.yellow('npm install')}\n`)
+      console.log(`  ${chalk.yellow('(p)npm install')}\n`)
     }
     catch (error) {
       console.error(chalk(error))

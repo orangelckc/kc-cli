@@ -131,3 +131,19 @@ export function writePackageJson(targetDir: string, content: Record<string, any>
     }
   })
 }
+
+/**
+ * 删除模版带有的git信息，并重新init
+ */
+export function reInitGit(targetDir: string) {
+  return new Promise<void>((resolve, reject) => {
+    try {
+      fs.rmSync(path.join(targetDir, '.git'), { recursive: true })
+      spawnSync('git init', { cwd: targetDir, shell: true, stdio: 'inherit' })
+      resolve()
+    }
+    catch (error) {
+      reject(new Error('初始化git仓库失败'))
+    }
+  })
+}
